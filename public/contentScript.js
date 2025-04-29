@@ -22,13 +22,33 @@ function applyShading(enabled, intensity) {
   if (enabled) {
     const shadeColor = getShadeColor(intensity);
     styleElement.textContent = `
+      /* Target only white or near-white backgrounds */
       body, div, section, article, aside, main, header, footer, nav {
         background-color: ${shadeColor} !important;
       }
       
+      /* Preserve text colors to maintain readability */
+      body, div, section, article, aside, main, header, footer, nav, p, span, h1, h2, h3, h4, h5, h6, a {
+        color: inherit !important;
+      }
+      
+      /* Preserve visibility of all elements */
+      * {
+        visibility: visible !important;
+        display: inherit !important;
+        opacity: 1 !important;
+      }
+      
       /* Preserve images, videos, and canvases */
-      img, video, canvas, svg {
+      img, video, canvas, svg, iframe, object, embed {
         background-color: transparent !important;
+      }
+      
+      /* Preserve form elements */
+      input, button, textarea, select, option, form {
+        background-color: inherit !important;
+        color: inherit !important;
+        border-color: inherit !important;
       }
       
       /* Make transitions smooth */
